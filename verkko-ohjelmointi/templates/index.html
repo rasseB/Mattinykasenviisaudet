@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="utf-8">
+    <title>Sitaattikokoelma</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/script.js" defer></script>
+  </head>
+  <body>
+    <div style="display:flex;align-items:center;gap:2rem;margin-bottom:1rem;">
+      <div id="live" style="display:flex;flex-direction:column;align-items:center;width:200px;min-width:200px;">
+        <img id="liveimg" src="" alt="Matti Nykänen" style="height:200px;max-width:100%;border-radius:8px;margin-bottom:0.5rem;display:block;">
+        <div id="livenum" style="font-size:1.5rem;color:#007">?</div>
+      </div>
+      <h1 style="margin-bottom:0;">Matti Nykäsen elämänviisaudet</h1>
+    </div>
+    {% for q in quotes %}
+      <div class="quote">
+        <div>“{{ q.text }}”</div>
+        <div class="src">— {{ q.source }}</div>
+      </div>
+    {% endfor %}
+    <p style="margin-top:2rem;color:#666">Yhteensä {{ total }} elämänviisautta tallessa.</p>
+
+    <form onsubmit="sendQuote(event)">
+      <h2>Lisää uusi Matti Nykäsen sitaatti</h2>
+      <label for="quote">Sitaatti:</label>
+      <textarea name="quote" id="quote" rows="2" required></textarea>
+      <label for="source">Lähde (Ei pakollinen):</label>
+      <input name="source" id="source" type="text" placeholder="Tuntematon">
+      <button type="submit">Lisää</button>
+    </form>
+    <div id="msg"></div>
+
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script>
+      const socket = io();
+      socket.on('update', function(data) {
+        let imgsrc = '';
+        if (data.img) {
+          imgsrc = '/static/kuvat/' + data.img;
+        }
+        const imgEl = document.getElementById('liveimg');
+        if (imgEl) imgEl.src = imgsrc;
+        const numEl = document.getElementById('livenum');
+        if (numEl) numEl.textContent = data.number;
+      });
+    </script>
+  </body>
+</html>

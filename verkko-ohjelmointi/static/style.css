@@ -1,0 +1,11 @@
+
+body { font-family: system-ui, sans-serif; margin: 2rem; }
+h1 { margin-bottom: .5rem; }
+.quote { margin: 0.4rem 0; padding: .5rem 1rem; border-left: 4px solid #888; background:#f7f7f7; }
+.src { color:#444; font-style: italic; }
+form { margin-top:2rem; padding:1rem; background:#eef; border-radius:8px; }
+label { display:block; margin-top:.5rem; }
+input, textarea { width:100%; margin-top:.2rem; }
+.msg { color:green; margin-top:1rem; }
+.err { color:red; margin-top:1rem; }
+
