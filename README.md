@@ -1,2 +1,0 @@
-# Mattinykasenviisaudet
-Verkko-ohjelmoinnin harjoitus.
